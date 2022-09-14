@@ -1,0 +1,35 @@
+{
+  "name": "simple-react-login-function",
+  "version": "1.0.0",
+  "description": "",
+  "keywords": [],
+  "main": "src/index.js",
+  "dependencies": {
+    "@reduxjs/toolkit": "1.8.5",
+    "axios": "0.27.2",
+    "bootstrap": "5.2.1",
+    "react": "18.2.0",
+    "react-bootstrap": "2.5.0",
+    "react-dom": "18.2.0",
+    "react-hook-form": "7.35.0",
+    "react-redux": "8.0.2",
+    "react-router": "6.3.0",
+    "react-router-dom": "6.3.0"
+  },
+  "devDependencies": {
+    "@babel/runtime": "7.13.8",
+    "typescript": "4.1.3"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ]
+}
