@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { registerUser } from '../api/userApi'
 import { useAppDispatch, useAppSelector } from '../store/store'
 
@@ -96,6 +97,7 @@ const Register = () => {
 
   const { register, handleSubmit } = useForm()
   const error = useAppSelector((state) => state.user.error)
+  const navigate = useNavigate()
   const submitForm = () => {
     const data = {
       firstName: firstName,
@@ -106,22 +108,19 @@ const Register = () => {
     data.email = data.email.toLowerCase()
     const baseUrl = 'https://8y6w07.sse.codesandbox.io/register'
     dispatch(registerUser(data))
+    if (error.error === 'User already exists!') {
+      return navigate('/login')
+    }
   }
   return (
-    <>
-      {error === 'User already exists!' ? (
-        <div>User already exists!</div>
-      ) : (
-        <Form>
-          <Container>
-            <NameField setFirstName={setFirstName} setLastName={setLastName} />
-            <EmailField setEmail={setEmail} />
-            <PasswordField setPassword={setPassword} />
-            <SubmitButton handleSubmit={handleSubmit(submitForm)} />
-          </Container>
-        </Form>
-      )}
-    </>
+    <Form>
+      <Container>
+        <NameField setFirstName={setFirstName} setLastName={setLastName} />
+        <EmailField setEmail={setEmail} />
+        <PasswordField setPassword={setPassword} />
+        <SubmitButton handleSubmit={handleSubmit(submitForm)} />
+      </Container>
+    </Form>
   )
 }
 
