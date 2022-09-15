@@ -15,7 +15,7 @@ export const registerUser = createAsyncThunk(
   ) => {
     try {
       const response = await axios
-        .post('https://8y6w07.sse.codesandbox.io/register', {
+        .post('https://03vm2k-8080.preview.csb.app/register', {
           firstName: firstName,
           lastName: lastName,
           email: email,
