@@ -1,6 +1,6 @@
 import * as React from 'react'
 import { useState, useEffect } from 'react'
-import { Button, Col, Container, Form, Row } from 'react-bootstrap'
+import { Alert, Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { registerUser } from '../api/userApi'
@@ -92,11 +92,15 @@ const Register = () => {
   const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [registerSuccess, setRegisterSuccess] = useState<{
+    success: boolean | null
+  }>({ success: null })
 
   const dispatch = useThunkDispatch()
 
   const { register, handleSubmit } = useForm()
   const error = useAppSelector((state) => state.user.error)
+  const registerState = useAppSelector((state) => state.user.registerSuccess)
   const navigate = useNavigate()
   const submitForm = () => {
     const data = {
@@ -108,12 +112,21 @@ const Register = () => {
     data.email = data.email.toLowerCase()
     const baseUrl = 'https://8y6w07.sse.codesandbox.io/register'
     dispatch(registerUser(data))
-    if (error.error === 'User already exists!') {
+    setRegisterSuccess({
+      success: registerState
+    })
+    if (error && error.error === 'User already exists!') {
       return navigate('/login')
     }
   }
+  console.log('', registerSuccess.success)
   return (
     <Form>
+      {registerSuccess.success && (
+        <Alert variant="success">
+          Your account has been registered successfully!
+        </Alert>
+      )}
       <Container>
         <NameField setFirstName={setFirstName} setLastName={setLastName} />
         <EmailField setEmail={setEmail} />

@@ -6,12 +6,14 @@ interface InitialStateType {
   error: any
   userInfo: any
   isLoggedIn: boolean
+  registerSuccess: boolean | null
 }
 const initialState: InitialStateType = {
   loading: false,
   error: null,
   userInfo: null,
-  isLoggedIn: false
+  isLoggedIn: false,
+  registerSuccess: null
 }
 export const userReducer = createSlice({
   name: 'user',
@@ -28,14 +30,16 @@ export const userReducer = createSlice({
       .addCase(registerUser.pending, (state, action) => {
         state.loading = true
         state.error = null
+        state.registerSuccess = null
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false
         state.userInfo = action.payload
-        state.isLoggedIn = true
+        state.registerSuccess = true
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = false
+        state.registerSuccess = false
 
         state.error = action.payload
       })
