@@ -4,7 +4,7 @@ import { Button, Col, Container, Form, Row } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { registerUser } from '../api/userApi'
-import { useAppDispatch, useAppSelector } from '../store/store'
+import { useAppSelector, useThunkDispatch } from '../store/store'
 
 const NameField = ({
   setFirstName,
@@ -93,7 +93,7 @@ const Register = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const dispatch = useAppDispatch()
+  const dispatch = useThunkDispatch()
 
   const { register, handleSubmit } = useForm()
   const error = useAppSelector((state) => state.user.error)
