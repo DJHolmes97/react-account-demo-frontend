@@ -28,3 +28,25 @@ export const registerUser = createAsyncThunk(
     }
   }
 )
+
+export const loginUser = createAsyncThunk(
+  'user/loginUser',
+  async (
+    { email, password }: { email: string; password: string },
+    { rejectWithValue }
+  ) => {
+    console.log(email)
+    console.log(password)
+    try {
+      const response = await axios
+        .post('https://8r0bt4-8080.preview.csb.app/login', {
+          email: email,
+          password: password
+        })
+        .then((response) => response)
+      return response.data
+    } catch (error) {
+      return rejectWithValue(error.response.data)
+    }
+  }
+)
