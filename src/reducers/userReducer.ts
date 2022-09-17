@@ -1,10 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { loginUser, registerUser } from '../api/userApi'
 
+interface UserInfoType {
+  id: string
+  firstName: string
+  lastName: string
+  email: string
+}
+
 interface InitialStateType {
   loading: boolean
   error: any
-  userInfo: any
+  userInfo: UserInfoType | null
   isLoggedIn: boolean
   registerSuccess: boolean | null
 }
@@ -34,7 +41,6 @@ export const userReducer = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = false
-        state.userInfo = action.payload
         state.registerSuccess = true
       })
       .addCase(registerUser.rejected, (state, action) => {

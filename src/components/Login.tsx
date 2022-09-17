@@ -1,7 +1,8 @@
 import * as React from 'react'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button, Container, Form } from 'react-bootstrap'
 import { useForm } from 'react-hook-form'
+import { useNavigate } from 'react-router'
 import { loginUser } from '../api/userApi'
 import {
   useAppDispatch,
@@ -52,11 +53,19 @@ const SubmitButton = ({ handleSubmit }: { handleSubmit: any }) => {
 export const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [loggedInAttempted, setLoggedInAttempted] = useState(false)
+  const isLoggedIn = useAppSelector((state) => state.user.isLoggedIn)
 
   const dispatch = useThunkDispatch()
-
+  const navigate = useNavigate()
   const { register, handleSubmit } = useForm()
   const error = useAppSelector((state) => state.user.error)
+  useEffect(() => {
+    setLoggedInAttempted(false)
+    if (isLoggedIn) {
+      return navigate('/home')
+    }
+  }, [isLoggedIn])
   const submitForm = () => {
     const data = {
       email: email,
@@ -64,6 +73,10 @@ export const Login = () => {
     }
     data.email = data.email.toLowerCase()
     dispatch(loginUser(data))
+    setLoggedInAttempted(true)
+    if (isLoggedIn) {
+      return navigate('/home')
+    }
   }
   return (
     <Form>
