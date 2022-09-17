@@ -1,6 +1,7 @@
 import React from 'react'
 import { Container, Nav, Navbar } from 'react-bootstrap'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Home from './components/Home'
 import { Login } from './components/Login'
 import { Logout } from './components/Logout'
 import Register from './components/Register'
@@ -24,7 +25,7 @@ export default function App() {
       <div className="App">
         <h1>Hello CodeSandbox</h1>
         <Routes>
-          <Route path="/home" element={<h1>Home</h1>} />
+          <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
